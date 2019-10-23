@@ -1,31 +1,42 @@
-package d1018;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gametest5th;
 
-import java.awt.Graphics;
-import javax.swing.*;
+import controllers.SceneController;
+import io.CommandSolver.CommandWrapper;
+import scene.BattleScene;
+import java.awt.*;
+import javax.swing.JPanel;
 
-import Controllers.MusicController;
-import Controllers.SceneController;
-import IO.CommandSolver.CommandWrapper;
-import Values.ImagePath;
-import Values.PathBuilder;
 
-public class GameJPanel extends JPanel {
-	
-	private SceneController sceneController;
+/**
+ *
+ * @author user1
+ */
+public class GameJPanel extends JPanel { //場景管理
 
-	public GameJPanel() {
-//		setPreferredSize(new Dimension(100,100));
-		sceneController = new SceneController();
-	}
+    private SceneController sceneController;
 
-	public void update(CommandWrapper commands) {
-		sceneController.sceneUpdate(commands);
-	}
+    public static final int BATTLE = 1;
 
-	@Override
-	public void paint(Graphics g) {
-		sceneController.paint(g);
-	}
-	
+    public GameJPanel() {
+        sceneController = new SceneController();
+//        sceneController.changeScene(new MainScene(sceneController));
+        sceneController.changeScene(new BattleScene(sceneController));
 
+    }
+
+    public void update(CommandWrapper commands) {
+        sceneController.sceneUpdate(commands);
+
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        sceneController.paint(g);
+
+    }
 }

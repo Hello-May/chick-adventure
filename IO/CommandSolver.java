@@ -1,13 +1,24 @@
-package IO;
+package io;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author user1
+ */
 public class CommandSolver extends Thread {
 
     public enum MouseState {
@@ -128,8 +139,8 @@ public class CommandSolver extends Thread {
         private char currentChar;
         // add @ 20191018 end
         
-        private boolean clear;// ¬O§_¦b§ó·s®É²M°£¤W¤@´V«ü¥O
-        private boolean isKeyDeletion;// §ó·s®É³sÁä­È³£§¹¾ã²M°£(¤£·|Ä²µoreleased)
+        private boolean clear;// æ˜¯å¦åœ¨æ›´æ–°æ™‚æ¸…é™¤ä¸Šä¸€å¹€æŒ‡ä»¤
+        private boolean isKeyDeletion;// æ›´æ–°æ™‚é€£éµå€¼éƒ½å®Œæ•´æ¸…é™¤(ä¸æœƒè§¸ç™¼released)
         private final Map<Integer, Byte> keyMap;// input to command
         private Map<Byte, Boolean> pressedMap;// command pressed/released
 
@@ -282,14 +293,14 @@ public class CommandSolver extends Thread {
             currentState = state;
         }
 
-        // ±N·í«eªº«ü¥O¦s¤Jrecorder¨Ã¨ê·s(·Æ¹«¼È®É¤£¨ê·s)«ü¥O¶°
+        // å°‡ç•¶å‰çš„æŒ‡ä»¤å­˜å…¥recorderä¸¦åˆ·æ–°(æ»‘é¼ æš«æ™‚ä¸åˆ·æ–°)æŒ‡ä»¤é›†
         private void record(long time) {
             recorder.add(new MouseData(currentEvent, currentState, time));
             currentEvent = null;
             currentState = null;
         }
 
-        // ¹CÀ¸§ó·s¨ú±o¹ïÀ³ªº«ü¥O
+        // éŠæˆ²æ›´æ–°å–å¾—å°æ‡‰çš„æŒ‡ä»¤
         public MouseData update() {
             if (recorder.hasNext()) {
                 return recorder.next();
@@ -346,34 +357,34 @@ public class CommandSolver extends Thread {
     }
 
     private static class KeyTracker {
-        // ¦Û©w¸q¦æ¬°¦Cªí
+        // è‡ªå®šç¾©è¡Œç‚ºåˆ—è¡¨
 
         private CommandConverter commandList;
-        // ¬ö¿ı¨C¤@¦¸§ó·s®Éªº«öÁä¦æ¬°
+        // ç´€éŒ„æ¯ä¸€æ¬¡æ›´æ–°æ™‚çš„æŒ‰éµè¡Œç‚º
         private CommandRecorder<KeyData> recorder;
 
-        // ¾É¤J¦æ¬°¦Cªí
+        // å°å…¥è¡Œç‚ºåˆ—è¡¨
         private KeyTracker(boolean clear, boolean isKeyDeletion, boolean isTrackChar) {
             commandList = new CommandConverter(clear, isKeyDeletion, isTrackChar);
             recorder = new CommandRecorder<>();
         }
 
-        // ·s¼W¦Û©w¸q«öÁä¥H¤Î¹ïÀ³ªº«ü¥O => ¥Î©ó¤£¦PºØÃşªºinput³]©w
+        // æ–°å¢è‡ªå®šç¾©æŒ‰éµä»¥åŠå°æ‡‰çš„æŒ‡ä»¤ => ç”¨æ–¼ä¸åŒç¨®é¡çš„inputè¨­å®š
         public void add(int key, int command) {
             commandList.addKeyPair(key, command);
         }
 
-        // ³q¹L¦Û©w¸q«öÁä¥h«ü©w¹ïÀ³«ü¥Oª¬ºA
+        // é€šéè‡ªå®šç¾©æŒ‰éµå»æŒ‡å®šå°æ‡‰æŒ‡ä»¤ç‹€æ…‹
         public void trig(int key, boolean isPressed) {
             commandList.updateCommandByKey(key, isPressed);
         }
 
-        // ±N·í«eªº«ü¥O¦s¤Jrecorder¨Ã¨ê·s«ü¥O¶°
+        // å°‡ç•¶å‰çš„æŒ‡ä»¤å­˜å…¥recorderä¸¦åˆ·æ–°æŒ‡ä»¤é›†
         public void record(long time) {
             recorder.add(commandList.release(time));
         }
 
-        // ¹CÀ¸§ó·s¨ú±o¹ïÀ³ªº«ü¥O
+        // éŠæˆ²æ›´æ–°å–å¾—å°æ‡‰çš„æŒ‡ä»¤
         
         public KeyData update() {
             if (recorder.hasNext()) {

@@ -1,104 +1,83 @@
-package GameObject;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gameobject;
 
 import java.awt.Graphics;
+import utils.Global;
 
+/**
+ *
+ * @author user1
+ */
 public abstract class GameObject {
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
-	protected String name;
-	protected int picture;
 
-	public GameObject(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
-	
-	public int getPicture() {
-		return this.picture;
-	}
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
 
-	public int getWidth() {
-		return this.width;
-	}
+//    private String name;
+    public GameObject(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 
-	public int getHeight() {
-		return this.height;
-	}
+    // coordinate start
+    public int getX() {
+        return x;
+    }
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    public int getY() {
+        return y;
+    }
 
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    public void setX(int x) {
+        this.x = x;
+    }
 
-	// coordinate start
-	public int getX() {
-		return this.x;
-	}
+    public void setY(int y) {
+        this.y = y;
+    }
+    // coordinate end
 
-	public int getY() {
-		return this.y;
-	}
+    // Bound start
+    public int getBottom() {
+        return y + height;
+    }
 
-	public void setX(int x) {
-		this.x = x;
-	}
+    public int getTop() {
+        return y;
+    }
 
-	public void setY(int y) {
-		this.y = y;
-	}
-	// coordinate end
+    public int getLeft() {
+        return x;
+    }
 
-	// Bound start
-	public int getBottom() {
-		return this.y + height;
-	}
+    public int getRight() {
+        return x + width;
+    }
+    // Bound end
 
-	public int getTop() {
-		return this.y;
-	}
+    public boolean isCollision(GameObject obj) {
+        if (getLeft() > obj.getRight()) {
+            return false;
+        }
+        if (getRight() < obj.getLeft()) {
+            return false;
+        }
+        if (getTop() > obj.getBottom()) {
+            return false;
+        }
+        if (getBottom() < obj.getTop()) {
+            return false;
+        }
+        return true;
+    }
 
-	public int getLeft() {
-		return this.x;
-	}
-
-	public int getRight() {
-		return this.x + width;
-	}
-	// Bound end
-
-	public boolean isCollision(GameObject obj) {
-		if (getLeft() > obj.getRight()) {
-			return false;
-		}
-		if (getRight() < obj.getLeft()) {
-			return false;
-		}
-		if (getTop() > obj.getBottom()) {
-			return false;
-		}
-		if (getBottom() < obj.getTop()) {
-			return false;
-		}
-		return true;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void move() {
-		// 預設物品靜止不動
-	}
-
-	public abstract void paint(Graphics g); // 物件可能是多張圖片
-	
-	public abstract void paint(Graphics g,int cx ,int cy);
-
+    public abstract void paint(Graphics g);
 }
