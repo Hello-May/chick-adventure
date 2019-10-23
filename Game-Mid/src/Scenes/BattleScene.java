@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package scene;
+package Scenes;
 
 import fighting.Button;
-import controllers.ImageResourceController;
+import Controllers.ImageController;
 import fighting.DirectionGroup;
 import fighting.Status;
 import fighting.StatusBar;
-import io.CommandSolver.KeyCommandListener;
+import IO.CommandSolver.KeyCommandListener;
 //import controllers.BattleController;
-import controllers.Notes;
-import controllers.PathBuilder;
-import controllers.SceneController;
-import actor.Actor;
-import actor.Chicken;
+import Controllers.Notes;
+import Values.PathBuilder;
+import Controllers.SceneController;
+import GameObject.Actor;
+import GameObject.Chicken;
 import fighting.Job;
 
-import utils.Global;
-import values.ImagePath;
+import Utils.Global;
+import Values.ImagePath;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import popup.PopUpWindow;
@@ -76,7 +76,7 @@ public class BattleScene extends Scene {
     }
 
     private BufferedImage getImage(int tmp) {
-        ImageResourceController irc = ImageResourceController.getInstance();
+        ImageController irc = ImageController.getInstance();
         if (tmp == 0) {
             return irc.tryGetImage(PathBuilder.getImg(ImagePath.Scene.GRASSLAND));
         }
@@ -88,13 +88,13 @@ public class BattleScene extends Scene {
 
     @Override
     public void sceneBegin() {
-        chicken = new Chicken(720, 450, 96, 96, 2, playerStatus, new Job("法師"));
-        playerStatus = new Status(200, 200, 10);// 血 魔 攻擊
+        chicken = new Chicken(720, 450, 96, 96, 2, playerStatus, new Job("瘜葦"));
+        playerStatus = new Status(200, 200, 10);// 銵� 擳� ����
 
         actor = new Actor(200, 450, 96, 96, 2, 14, enemyStatus);
         enemyStatus = new Status(200, 200, 10);
 
-        playerBar = new StatusBar(10, 10, 200, 85, playerStatus); //位置、大小
+        playerBar = new StatusBar(10, 10, 200, 85, playerStatus); //雿蔭�之撠�
         enemyBar = new StatusBar(Global.SCREEN_WIDTH - 200 - 30, 10, 200, 85, enemyStatus);
 
         menu = new Button(330, 550, 48, 57);
@@ -102,16 +102,16 @@ public class BattleScene extends Scene {
             @Override
             public void onClick(int count) {
                 switch (count) {
-                    case 0://攻擊
+                    case 0://����
                         chicken.attack();
                         actor.attack();
                         break;
-                    case 1://技能
+                    case 1://���
                         currentWindow = new SkillPopUpWindow(415, 470, 140, 60);
                         currentWindow.setOnClickListener(new SkillPopUpWindow.ButtonListener() {
                             @Override
                             public void onClick(int count) {
-                                dg = new DirectionGroup(340, 400, 51, 54, new DirectionGroup.OnCompleteListener() { //new出來後監聽成功還是失敗
+                                dg = new DirectionGroup(340, 400, 51, 54, new DirectionGroup.OnCompleteListener() { //new�靘������憭望��
                                     @Override
                                     public void success() {
                                         System.out.println("Success!!!!");
@@ -119,14 +119,14 @@ public class BattleScene extends Scene {
                                         System.out.println("A");
                                         switch (count) {
                                             case 0:
-                                                System.out.println("火球");
+                                                System.out.println("����");
 
                                                 break;
                                             case 1:
-                                                System.out.println("詛咒");
+                                                System.out.println("閰��");
                                                 break;
                                             case 2:
-                                                System.out.println("召喚");
+                                                System.out.println("����");
                                                 break;
                                         }
                                     }
@@ -142,14 +142,14 @@ public class BattleScene extends Scene {
                             }
                         });
                         break;
-                    case 2://投擲
-                        System.out.println("投擲");
+                    case 2://��
+                        System.out.println("��");
                         break;
-                    case 3://治療
-                        System.out.println("治療");
+                    case 3://瘝餌��
+                        System.out.println("瘝餌��");
                         break;
-                    case 4://逃跑
-                        System.out.println("逃跑");
+                    case 4://���
+                        System.out.println("���");
                         break;
                 }
             }
@@ -198,7 +198,7 @@ public class BattleScene extends Scene {
 
         menu.paint(g);
 
-        if (currentWindow != null) { //畫在最上面
+        if (currentWindow != null) { //����銝
             currentWindow.paint(g);
         }
     }
@@ -207,4 +207,16 @@ public class BattleScene extends Scene {
     public KeyCommandListener getKeyCommandListener() {
         return (currentWindow == null) ? keyCommandListener : currentWindow.getKeyCommandListener();
     }
+
+	@Override
+	public KeyCommandListener getCommandListener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public KeyCommandListener getMouseCommandListener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

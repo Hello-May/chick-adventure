@@ -1,4 +1,4 @@
-package d1018;
+package Main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -61,6 +61,7 @@ public class Main {
 					{ KeyEvent.VK_ESCAPE, Global.ESC },
 					{ KeyEvent.VK_ENTER, Global.ENTER }
 					}).enableMouseTrack(jp).keyCleanMode().gen();
+//                  }).enableMouseTrack(j).keyTypedMode().gen(); //¾Ô°«³õ´º¥Î
 //					}).enableMouseTrack(jp).trackChar().gen();
 		addKeyListener(j, cs);
 		cs.start();

@@ -1,72 +1,110 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package actor;
+package GameObject;
 
-import controllers.ImageResourceController;
-import controllers.PathBuilder;
-import fighting.Status;
-import gameobject.MovableGameObject;
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import utils.DelayCounter;
-import utils.Global;
-import static utils.Global.*;
-import values.ImagePath;
 
-/**
- *
- * @author user1
- */
+import Utils.DelayCounter;
+import Utils.Global;
+
 public class Actor extends MovableGameObject {
+	private DelayCounter fly;
 
-    private static final int[] ACT = {0, 1, 2, 1};
-    private int act;
-    private int delay;
-    private int direction;
-    private ActorHelper actorHelper;
-    private DelayCounter movedDelay;
-    private Status status;
+	public Actor(int x, int y, int width, int height, int speed, int actor, int delay) {
+		super(x, y, width, height, speed, delay);
+		fly = new DelayCounter(delay*2);
+		picture = actor;
+		actorHelper = new ActorHelper(picture);
+		name = "µL¦W¤ó";
+		hp = currentHp = 50;
+		mp = currentMp = 20;
+		atk = 5;
+		def = 2;
+		skills = new Skill[] { new Heal(), new Attack(), new Critrcal() };
+	}
 
-    public Actor(int x, int y, int width, int height, int speed, int actor, Status status) {
-        super(x, y, width, height, speed);
-        delay = act = 0;
-        direction = DOWN;
-        movedDelay = new DelayCounter(5);
-        actorHelper = new ActorHelper(actor);
-        this.status = status;
-    }
+	@Override
+	public void useSkill(Actor target) {
+//		skills[(int) (Math.random() * skills.length)].skill(this, target);	
+		skills[0].skill(this, target);
+//		if (isCollision(target)) {
+//				
+//			
+//		} else {
+//			
+//		}
+	}
 
-    public void setY(int y) {
-        this.y = y;
-    }
+	@Override
+	public void move() {
+		if (fly.update()) {
+			act = ++act % 4; // 1,2,3,0
+		}
+		if (delayCounter.update()) {
+			switch (direction) {
+			case Global.UP:
+				y -= Global.ACTOR_STEP * getSpeed();
+				break;
+			case Global.LEFT:
+				x -= Global.ACTOR_STEP * getSpeed();
+				break;
+			case Global.DOWN:
+				y += Global.ACTOR_STEP * getSpeed();
+				break;
+			case Global.RIGHT:
+				x += Global.ACTOR_STEP * getSpeed();
+				break;
+			}
+		}
+	}
 
-    public void setX(int x) {
-        this.x = x;
-    }
+	@Override
+	public void randomMove() {
+		if (delayCounter.update()) {
+			act = ++act % 4; // 1,2,3,0;
+			int r = (int) (Math.random() * 6);
+			if (r >= 4) {
+				return;
+			}
+			changeDirection(r);
+			switch (r) {
+			case Global.UP:
+				y -= Global.ACTOR_STEP * getSpeed();
+				break;
+			case Global.LEFT:
+				x -= Global.ACTOR_STEP * getSpeed();
+				break;
+			case Global.DOWN:
+				y += Global.ACTOR_STEP * getSpeed();
+				break;
+			case Global.RIGHT:
+				x += Global.ACTOR_STEP * getSpeed();
+				break;
+			}
+		}
+	}
 
+	@Override
+	public void paint(Graphics g) {
+		actorHelper.paint(g, x, y, width, height, ACT[act], direction);
+		// °Ñ¼Æ«á¨â­Ó¬O¨«¸ô¤¤³y«¬+4ºØ¤è¦Vªº³y«¬
 
-    public void changeDirection(int direction) {
-        this.direction = direction;
-    }
+		if (Global.DEBUG) {
+			// ¦L®y¼Ğ
+			g.setColor(Color.YELLOW);
+			g.drawString(x + "," + y, x - 6, y - 3);
+		}
+	}
 
-    @Override
-    public void move() {
-        if (movedDelay.update()) {
-            act = ++act % 4;
-        }
-    }
+	@Override
+	public void paint(Graphics g, int cx, int cy) {
+		actorHelper.paint(g, x - cx, y - cy, width, height, ACT[act], direction);
+		// °Ñ¼Æ«á¨â­Ó¬O¨«¸ô¤¤³y«¬+4ºØ¤è¦Vªº³y«¬
 
-    public void attack() { //æŒ‰ä¸‹æ”»æ“Šçš„æ™‚å€™æ€ªç‰©è½‰å‘å³é‚Š
-        this.direction = Global.RIGHT;
-        //æ‡‰è©²è¦å¯«ifç¢°æ’å¾Œè½‰å‘å³é‚Šelseæ­£é¢
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        actorHelper.paint(g, x, y, width, height, ACT[act], direction);
-    }
+		if (Global.DEBUG) {
+			// ¦L®y¼Ğ
+			g.setColor(Color.YELLOW);
+			g.drawString(x + "," + y, (x - cx - 6), (y - cy - 3));
+		}
+	}
 
 }

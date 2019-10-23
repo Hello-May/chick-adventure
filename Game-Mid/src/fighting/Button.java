@@ -1,24 +1,13 @@
 package fighting;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-import controllers.ImageResourceController;
-import controllers.PathBuilder;
-import gameobject.GameObject;
-import utils.Global;
-import values.ImagePath;
+import Controllers.ImageController;
+import Values.PathBuilder;
+import GameObject.GameObject;
+import Values.ImagePath;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author user1
- */
-public class Button extends GameObject { //選單
+public class Button extends GameObject { 
 
     public interface ButtonListener {
 
@@ -30,7 +19,7 @@ public class Button extends GameObject { //選單
     private int count;
     private static final int OFFSET = 143;
     private static final int SOURCE = 171;
-    private static int MARGIN_FONT_BAR = 80;//間距
+    private static int MARGIN_FONT_BAR = 80;
 
     public Button(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -42,7 +31,7 @@ public class Button extends GameObject { //選單
     }
 
     private BufferedImage getMenu(int count) {
-        ImageResourceController irc = ImageResourceController.getInstance();
+        ImageController irc = ImageController.getInstance();
         if (count == 0) {
             return irc.tryGetImage(PathBuilder.getImg(ImagePath.Battle.battle.ATTACK));
         }
@@ -61,32 +50,32 @@ public class Button extends GameObject { //選單
         return null;
     }
 
-    public void nextChoose() { //分開寫比較有彈性、管理
+    public void nextChoose() { 
         if (count < 4) {
             count++;
         }
     }
 
-    public void lastChoose() { //分開寫比較有彈性、管理
+    public void lastChoose() {
         if (count > 0) {
             count--;
         }
     }
 
-    public void changeCount(int count) { //分開寫比較有彈性、管理
+    public void changeCount(int count) { 
         if (this.count < 0 || this.count > 4) {
             return;
         }
         this.count = count;
     }
 
-    public void onClick() { //點擊後觸發當前count
+    public void onClick() { 
         if (buttonListener != null) {
             buttonListener.onClick(count);
         }
     }
 
-    public void setButtonListener(ButtonListener buttonListener) { //重要 監聽button
+    public void setButtonListener(ButtonListener buttonListener) { 
         this.buttonListener = buttonListener;
     }
 
@@ -111,4 +100,10 @@ public class Button extends GameObject { //選單
             }
         }
     }
+
+	@Override
+	public void paint(Graphics g, int cx, int cy) {
+		// TODO Auto-generated method stub
+		
+	}
 }

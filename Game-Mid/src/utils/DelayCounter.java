@@ -1,73 +1,72 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package utils;
+package Utils;
 
 import java.awt.Font;
 import java.awt.Graphics;
 
-/**
- *
- * @author user1
- */
 public class DelayCounter {
-
-    private int delay;// è¦å»¶é²çš„æ™‚é–“
-    private int count;// è¨ˆç®—å»¶é²
+    private int delay;// ­n©µ¿ğªº®É¶¡
+    private int count;// ­pºâ©µ¿ğ
     private boolean isPause;
     private int x;
 
-    public DelayCounter(int delay) {
-        this.delay = delay * Global.ANIMA_DELAY;
-        count = 0;
-        x = 1000;
-    }
+	 public DelayCounter(int delay) {
+	        this.delay = delay * Global.ANIMA_DELAY;
+	        count = 0;
+	        x = 1000;
+	    }
+	 
+	    public DelayCounter(int delay, boolean isPause) {
+	        this.delay = delay * Global.ANIMA_DELAY;
+	        count = 0;
+	        this.isPause = isPause;
+	    }
 
-    public DelayCounter(int delay, boolean isPause) {
-        this.delay = delay * Global.ANIMA_DELAY;
-        count = 0;
-        this.isPause = isPause;
-    }
-
-    public int getDeltaTime() {
-//        return count * Global.MILLISEC_PER_UPDATE;// å–å¾—ç¶“éçš„æ¯«ç§’
-        return x--;
-    }
-
-    public void reset() {
-        count = 0;
-    }
-
-    public void stop() {
-        isPause = true;
-        count = 0; //åœæ­¢å¾Œé‡ä¾†
-    }
-
-    public void pause() {//æš«åœ
-        isPause = true;
-    }
-
-    public void start() {
-        isPause = false;
-    }
-
-    public boolean update() {
-        if (isPause) {//æš«åœäº†å°±ä¸æ›´æ–°
+	public boolean update() {
+		if (count++ < delay) {
+			return false;
+		}
+		count = 0;
+		return true;
+	}
+	
+    public boolean updatePause() {
+        if (isPause) {//¼È°±¤F´N¤£§ó·s
             return false;
         }
-        if (count++ < delay) {//æ™‚é–“å…§æ²’è¼¸å…¥å®Œå°±false
+        if (count++ < delay) {//®É¶¡¤º¨S¿é¤J§¹´Nfalse
             return false;
         }
-        count = 0; //count=delayå°±åšæ›´æ–°ä¸¦æ­¸é›¶
+        count = 0; //count=delay´N°µ§ó·s¨ÃÂk¹s
         return true;
     }
+	
+	    public int getDeltaTime() {
+//	        return count * Global.MILLISEC_PER_UPDATE;// ¨ú±o¸g¹Lªº²@¬í
+	        return x--;
+	    }
 
-    public void paint(Graphics g) {
-        String s = "å€’æ•¸è¨ˆæ™‚é–‹å§‹:  " + getDeltaTime() / 100;
-        g.setFont(new Font("Helvetica", Font.BOLD, 20));
-        g.drawString(s, 430, 380);
+	    public void reset() {
+	        count = 0;
+	    }
 
-    }
+	    public void stop() {
+	        isPause = true;
+	        count = 0; //°±¤î«á­«¨Ó
+	    }
+
+	    public void pause() {//¼È°±
+	        isPause = true;
+	    }
+
+	    public void start() {
+	        isPause = false;
+	    }
+
+	    public void paint(Graphics g) {
+	        String s = "­Ë¼Æ­p®É¶}©l:  " + getDeltaTime() / 100;
+	        g.setFont(new Font("Helvetica", Font.BOLD, 20));
+	        g.drawString(s, 430, 380);
+
+	    }
+
 }

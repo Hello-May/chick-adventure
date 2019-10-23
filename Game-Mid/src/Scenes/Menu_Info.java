@@ -11,6 +11,7 @@ public class Menu_Info extends Scene {
 	private String title;
 	private String back;
 	private KeyCommandListener commandListener;
+	private boolean isReleased;
 
 	public Menu_Info(SceneController sceneController) {
 		super(sceneController);
@@ -21,24 +22,22 @@ public class Menu_Info extends Scene {
 			public void keyPressed(int commandCode, long time) {
 				System.out.println("pressed at: " + time + " -> " + commandCode);
 				switch (commandCode) {
-				case Global.UP:
-					break;
-				case Global.LEFT:
-					break;
-				case Global.DOWN:
-					break;
-				case Global.RIGHT:
-					break;
-				case Global.SPACE:	
-					break;
 				case Global.ENTER:
-					sceneController.changeScene(sceneController.getMainMenu()[0]);
+					if (isReleased) {
+						sceneController.changeScene(sceneController.getMainMenu()[0]);
+						isReleased = false;
+					}
 					break;
 				}
 			}
 
 			@Override
-			public void keyReleased(int CommandCode, long time) {
+			public void keyReleased(int commandCode, long time) {
+				switch (commandCode) {
+				case Global.ENTER:
+					isReleased = true;
+					break;
+				}
 			}
 		};
 	}
@@ -68,6 +67,5 @@ public class Menu_Info extends Scene {
 	public KeyCommandListener getCommandListener() {
 		return commandListener;
 	}
-
 
 }

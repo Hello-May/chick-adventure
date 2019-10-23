@@ -1,42 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package gametest5th;
+package Main;
 
-import controllers.SceneController;
-import io.CommandSolver.CommandWrapper;
-import scene.BattleScene;
-import java.awt.*;
-import javax.swing.JPanel;
+import java.awt.Graphics;
+import javax.swing.*;
 
+import Controllers.MusicController;
+import Controllers.SceneController;
+import IO.CommandSolver.CommandWrapper;
+import Values.ImagePath;
+import Values.PathBuilder;
+import Scenes.BattleScene;
 
-/**
- *
- * @author user1
- */
-public class GameJPanel extends JPanel { //Â†¥ÊôØÁÆ°ÁêÜ
+public class GameJPanel extends JPanel {
+	
+	private SceneController sceneController;
 
-    private SceneController sceneController;
+	public GameJPanel() {
+//		setPreferredSize(new Dimension(100,100));
+		sceneController = new SceneController();
+//		sceneController.changeScene(new BattleScene(sceneController)); 	//æ‘∞´≥ı¥∫•Œ
+	}
 
-    public static final int BATTLE = 1;
+	public void update(CommandWrapper commands) {
+		sceneController.sceneUpdate(commands);
+	}
 
-    public GameJPanel() {
-        sceneController = new SceneController();
-//        sceneController.changeScene(new MainScene(sceneController));
-        sceneController.changeScene(new BattleScene(sceneController));
+	@Override
+	public void paint(Graphics g) {
+		sceneController.paint(g);
+	}
+	
 
-    }
-
-    public void update(CommandWrapper commands) {
-        sceneController.sceneUpdate(commands);
-
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        sceneController.paint(g);
-
-    }
 }

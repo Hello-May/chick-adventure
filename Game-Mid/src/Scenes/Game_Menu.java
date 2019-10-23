@@ -41,17 +41,24 @@ public class Game_Menu extends Scene {
 					}
 					break;
 				case Global.ENTER:
-					System.out.println(focusIndex + " , " + options[focusIndex]);
-					spaceActor(focusIndex);
+					if (isReleased) {
+						System.out.println(focusIndex + " , " + options[focusIndex]);
+						spaceActor(focusIndex);
+						isReleased = false;
+					}
 					break;
 				case Global.SPACE:
-					count++;
-					if (count == 3) {
-						count = 0;
+					if (isReleased) {
+						count++;
+						if (count == 3) {
+							count = 0;
+						}
+						actor = new Actor(actor.getX(), actor.getY(), Global.CHICK_SIZE_X, Global.CHICK_SIZE_Y,
+								Global.ACTOR_SPEED, count, Global.CHICK_DELAY);
+						isReleased = false;
 					}
-					actor = new Actor(actor.getX(), actor.getY(), Global.CHICK_SIZE_X, Global.CHICK_SIZE_Y,
-							Global.ACTOR_SPEED, count, Global.CHICK_DELAY);
 					break;
+
 				}
 			}
 
@@ -60,6 +67,8 @@ public class Game_Menu extends Scene {
 				switch (commandCode) {
 				case Global.UP:
 				case Global.DOWN:
+				case Global.ENTER:
+				case Global.SPACE:
 					isReleased = true;
 					break;
 				}

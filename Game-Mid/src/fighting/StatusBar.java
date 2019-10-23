@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package fighting;
 
-import controllers.ImageResourceController;
-import controllers.PathBuilder;
-import gameobject.GameObject;
-import values.ImagePath;
+import GameObject.GameObject;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,25 +9,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import sun.font.FontDesignMetrics;
 
-/**
- *
- * @author User
- */
-public class StatusBar extends GameObject { //框跟血(法)還是要分開new 才可分開定位
+public class StatusBar extends GameObject { 
 
     private static final String HP = "HP";
     private static final String MP = "MP";
-    private static int MARGIN = 10; //血魔間距
-    private static int MARGIN_FONT_BAR = 3;//字的間距
+    private static int MARGIN = 10; 
+    private static int MARGIN_FONT_BAR = 3;
     private Status status;
     private static Font f1;
     private int heightPerBar;
     private int widthPerBar;
-
-    private int fontAscent; //上升
+    private int fontAscent; 
     private int fontHeight;
     private int hpWidth;
     private int mpWidth;
@@ -45,8 +32,8 @@ public class StatusBar extends GameObject { //框跟血(法)還是要分開new �
         if (f1 == null) {
             f1 = new Font("Helvetica", Font.BOLD, 30);
         }
-        AffineTransform affinetransform = new AffineTransform();//可以做各種形狀的變化(ex:放大縮小)
-        FontRenderContext frc = new FontRenderContext(affinetransform, true, true);//字體類別和介面    
+        AffineTransform affinetransform = new AffineTransform();
+        FontRenderContext frc = new FontRenderContext(affinetransform, true, true);    
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(f1);
         hpWidth = (int) (f1.getStringBounds(HP, frc).getWidth());
         fontAscent = metrics.getAscent();
@@ -79,9 +66,15 @@ public class StatusBar extends GameObject { //框跟血(法)還是要分開new �
 
     @Override
     public void paint(Graphics g) {
-        ((Graphics2D)g).setStroke(new BasicStroke(3)); //黑框多粗
+        ((Graphics2D)g).setStroke(new BasicStroke(3));
         paintHP(g, MARGIN + x, MARGIN + y);
         paintMP(g, MARGIN + x, heightPerBar + MARGIN * 2 + y);
 //        ((Graphics2D)g).setStroke(new BasicStroke(1));
     }
+
+	@Override
+	public void paint(Graphics g, int cx, int cy) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,34 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package popup;
 
-import actor.Chicken;
-import io.CommandSolver;
-import controllers.ImageResourceController;
-import controllers.PathBuilder;
-import controllers.SceneController;
-import fighting.DirectionGroup;
-import scene.BattleScene;
-import utils.Global;
-import values.ImagePath;
+import IO.CommandSolver;
+import Controllers.ImageController;
+import Values.PathBuilder;
+import Utils.Global;
+import Values.ImagePath;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import jdk.nashorn.internal.ir.BreakNode;
 
-/**
- *
- * @author User
- */
-//待修改
-//沒彈性的寫法，鎖死只有三個技能、還有不同職業不同技能
-//把關掉的esc觸發寫在windowUpdate()
-//paint用到(int x, int y, int width, int height)
 public class SkillPopUpWindow extends PopUpWindow {
 
     private Graphics g;
@@ -41,7 +22,7 @@ public class SkillPopUpWindow extends PopUpWindow {
     private CommandSolver.KeyCommandListener keyCommandListener;
     private int count;
 
-    private BufferedImage[] MAGE = {getMageSkill(0), getMageSkill(1), getMageSkill(2)}; //法師技能
+    private BufferedImage[] MAGE = {getMageSkill(0), getMageSkill(1), getMageSkill(2)};
     private static int MARGIN = 40;
     private int test;
 
@@ -62,7 +43,7 @@ public class SkillPopUpWindow extends PopUpWindow {
                     case Global.ENTER:
                         buttonListener.onClick(count);
                         break;
-                    case Global.ESCAPE:
+                    case Global.ESC:
                         test = -1;
                         break;
                 }
@@ -74,7 +55,7 @@ public class SkillPopUpWindow extends PopUpWindow {
         };
     }
     
-    public void setOnClickListener(ButtonListener buttonListener){//重要 監聽
+    public void setOnClickListener(ButtonListener buttonListener){
         this.buttonListener = buttonListener;
     }
 
@@ -96,19 +77,18 @@ public class SkillPopUpWindow extends PopUpWindow {
         }
         this.count = count;
     }
-
-//    private void setButtonListener(SkillPopUpWindow.ButtonListener buttonListener) { //重要 監聽button
+//    private void setButtonListener(SkillPopUpWindow.ButtonListener buttonListener) {
 //        this.buttonListener = buttonListener;
 //    }
     private BufferedImage getMageSkill(int count) {
-        ImageResourceController irc = ImageResourceController.getInstance();
-        if (count == 0) { //火球
+        ImageController irc = ImageController.getInstance();
+        if (count == 0) { 
             return irc.tryGetImage(PathBuilder.getImg(ImagePath.Skills.Skill.FIREBALL));
         }
-        if (count == 1) { //共同-詛咒
+        if (count == 1) { 
             return irc.tryGetImage(PathBuilder.getImg(ImagePath.Skills.Skill.CURSE));
         }
-        if (count == 2) { //共同-召換
+        if (count == 2) { 
             return irc.tryGetImage(PathBuilder.getImg(ImagePath.Skills.Skill.CALL));
         }
         return null;
@@ -121,22 +101,21 @@ public class SkillPopUpWindow extends PopUpWindow {
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 128)); // int透明度0-255
-        g.fillRect(415, 470, 140, 60);//實心框
+        g.setColor(new Color(0, 0, 0, 128)); 
+        g.fillRect(415, 470, 140, 60);
         g.setColor(Color.WHITE);
-        g.drawRect(420, 475, 130, 50); //空心框
+        g.drawRect(420, 475, 130, 50); 
         for (int i = 0; i < MAGE.length; i++) {
             g.drawImage(MAGE[i], 429 + (MARGIN * i), 484, 32 + 429 + (MARGIN * i), 484 + 32, 0, 0, 32, 32, null);
         }
         for (int i = 0; i < MAGE.length; i++) {
             if (i == this.count) {
                 g.setColor(Color.YELLOW);
-                g.drawRect(427 + (MARGIN * i), 482, 36, 36); //空心框    
+                g.drawRect(427 + (MARGIN * i), 482, 36, 36);
             }
         }
     }
     
-
     @Override
     public CommandSolver.KeyCommandListener getKeyCommandListener() {
         return keyCommandListener;

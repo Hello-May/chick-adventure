@@ -1,33 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fighting;
 
-import actor.Actor;
-import actor.Chicken;
+import GameObject.Actor;
+import GameObject.Chicken;
 
-/**
- *
- * @author User
- */
 public class SkillList {
 
     public interface Skill {
-
         public void action(Chicken chicken, Actor target);
     }
 
     public static class Attack implements Skill {
-
         @Override
         public void action(Chicken chicken, Actor target) {
 //            target.setHp(target.getHp() - chicken.getAtk());
         }
     }
 
-    public static class FireBall implements Skill {//法師-火球
+    public static class FireBall implements Skill {
 
         @Override
         public void action(Chicken chicken, Actor target) {
@@ -36,7 +25,7 @@ public class SkillList {
         }
     }
 
-    public static class Curse implements Skill {//詛咒
+    public static class Curse implements Skill {
 
         @Override
         public void action(Chicken chicken, Actor target) {
@@ -44,7 +33,7 @@ public class SkillList {
         }
     }
 
-    public static class Summon implements Skill {//召喚
+    public static class Summon implements Skill {
 
         @Override
         public void action(Chicken chicken, Actor target) {
@@ -52,16 +41,13 @@ public class SkillList {
         }
     }
 
-    public static class Ax implements Skill {//戰士-斧頭
-
+    public static class Ax implements Skill {
         @Override
         public void action(Chicken chicken, Actor target) {
-
         }
     }
 
-    public static class Tartness implements Skill {//盜賊-鋒
-
+    public static class Tartness implements Skill {
         @Override
         public void action(Chicken chicken, Actor target) {
 

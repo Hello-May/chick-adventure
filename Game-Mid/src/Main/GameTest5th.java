@@ -4,10 +4,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gametest5th;
+package Main;
 
-import io.CommandSolver;
-import io.CommandSolver.CommandConverter;
+import IO.CommandSolver;
+import IO.CommandSolver.CommandConverter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,7 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.*;
-import utils.Global;
+import Utils.Global;
 import java.awt.Font;
 
 /**
@@ -42,7 +42,7 @@ public class GameTest5th {
             {KeyEvent.VK_S, Global.DOWN},
             {KeyEvent.VK_D, Global.RIGHT},
             {KeyEvent.VK_ENTER, Global.ENTER},
-            {KeyEvent.VK_ESCAPE, Global.ESCAPE}
+            {KeyEvent.VK_ESCAPE, Global.ESC}
         }).enableMouseTrack(j).keyTypedMode().gen();//加了keyTypedMode()才會判斷完一個keyReleased
         addKeyListener(j, cs);
         cs.start(); //沒有跑這個會爆錯
