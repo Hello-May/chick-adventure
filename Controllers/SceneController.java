@@ -27,7 +27,6 @@ public class SceneController {
 		gameMenu[0] = new Game_Menu(this);
 	}
 
-	
 //	private Scene[] doubleArr(Scene[] arr) {
 //		Scene [] tmp = new Scene [arr.length*2];
 //		for(int i=0;i<count;i++) {
@@ -44,7 +43,7 @@ public class SceneController {
 		if (currentScene != null) {
 			currentScene.sceneEnd();
 		}
-		if(scene instanceof Game_MainScene) {
+		if (scene instanceof Game_MainScene) {
 			mainScene = scene;
 		}
 		currentScene = scene;
@@ -55,25 +54,31 @@ public class SceneController {
 		if (commands != null && currentScene.getCommandListener() != null) {
 			commands.actionCommand(currentScene.getCommandListener());
 		}
+		if (commands != null && currentScene.getKeyCommandListener() != null) {
+			commands.actionCommand(currentScene.getKeyCommandListener());
+		}
+		if (commands != null && currentScene.getMouseCommandListener() != null) {
+			commands.actionCommand(currentScene.getMouseCommandListener());
+		}
 		currentScene.sceneUpdate();
 	}
-	
+
 	public Scene[] getMainMenu() {
 		return mainMenu;
 	}
-	
+
 	public Scene[] getGameMenu() {
 		return gameMenu;
 	}
-	
+
 	public Scene getCurrentScene() {
 		return currentScene;
 	}
-	
+
 	public Scene getMainScene() {
 		return mainScene;
 	}
-	
+
 	public void setMainScene(Scene scene) {
 		mainScene = scene;
 	}

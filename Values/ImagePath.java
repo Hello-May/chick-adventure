@@ -10,6 +10,7 @@ public class ImagePath {
 			public static final String A3 = FOLDER_CHARACTER + "/Actor3.png";
 			public static final String A4 = FOLDER_CHARACTER + "/Actor4.png";
 			public static final String A5 = FOLDER_CHARACTER + "/Actor5.png";
+			public static final String CHICKEN = FOLDER_CHARACTER + "/chicken.png";
 		}
 
 		public static class Monster {
@@ -31,6 +32,56 @@ public class ImagePath {
 			public static final String A1 = FOLDER_CHARACTER + "/Animal.png";
 		}
 	}
+	
+	  //上下左右圖片
+    public static class Direction {
+        public static final String WHITE = "/1.png";
+        public static final String GREEN = "/2.png";
+        public static final String RED = "/3.png";
+    }
+    
+  //場景圖
+    public static class Scene {
+
+        public static final String SWORD = "/sword.png";
+        public static final String GRASSLAND = "/grassland.jpg";
+    }
+
+    //戰鬥畫面會有的東西
+    public static class Battle {
+
+        public static final String FOLDER_BATTLE = "/Battle";
+
+        public static class battle { //選單圖片
+
+            public static final String ATTACK = FOLDER_BATTLE + "/attack.png";
+            public static final String SKILL = FOLDER_BATTLE + "/skill.png";
+            public static final String CAST = FOLDER_BATTLE + "/cast.png";
+            public static final String SOS = FOLDER_BATTLE + "/sos.png";
+            public static final String TREATMENT = FOLDER_BATTLE + "/treatment.png";
+
+        }
+
+    }
+
+    //技能
+    public static class Skills {
+
+        public static final String FOLDER_SKILL = "/Skill";
+
+        public static class Skill { //技能圖片
+
+            public static final String ATTACK = FOLDER_SKILL + "/attack.png"; //普通攻擊效果
+            public static final String FIREBALL = FOLDER_SKILL + "/fireball.jpg";
+            public static final String CURSE = FOLDER_SKILL + "/curse.jpg"; //
+            public static final String CALL = FOLDER_SKILL + "/call.jpg";
+        }
+
+        public static class Mage { //法師技能效果
+
+            public static final String FIRE = FOLDER_SKILL + "/fire.png";
+        }
+    }
 
 	public static class Tileset {
 		public static final String FOLDER_TILESET = "/Tilesets";

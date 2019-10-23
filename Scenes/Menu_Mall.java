@@ -67,5 +67,17 @@ public class Menu_Mall extends Scene {
 		return commandListener;
 	}
 
+	@Override
+	public KeyCommandListener getKeyCommandListener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public KeyCommandListener getMouseCommandListener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

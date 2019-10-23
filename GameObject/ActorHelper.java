@@ -13,9 +13,9 @@ public class ActorHelper {
 	private BufferedImage img;
 	private int actorPosition;
 	private int actor;
-	private int px;	//圖片中各動作座標
+	private int px; // 圖片中各動作座標
 	private int py;
-	private int w2;	//給主角存寬高用
+	private int w2; // 給主角存寬高用
 	private int h2;
 
 	public ActorHelper(int actor) {
@@ -38,6 +38,11 @@ public class ActorHelper {
 		case 2:
 			return irc.tryGetImage(PathBuilder.getImg(ImagePath.Bird.Body.B3));
 		}
+		// 戰鬥場景用
+		if (actor >= 8 &&actor < 16) {
+			return irc.tryGetImage(PathBuilder.getImg(ImagePath.Character.Actor.A2));
+		}
+		// 戰鬥場景用
 		if (actor >= 40 && actor < 48) {
 			return irc.tryGetImage(PathBuilder.getImg(ImagePath.Character.Animal.A1));
 		}
@@ -91,7 +96,13 @@ public class ActorHelper {
 
 		g.drawImage(img, x, y, x + width, y + height, px + act * w2, py + direction * h2, px + w2 + act * w2,
 				py + h2 + direction * h2, null);
-
+		
+//		int cx = 96 * (actorPosition % 4);
+//        int cy = 128 * (actorPosition / 4);
+//        g.drawImage(img, x, y, x + width, y + height,
+//                cx + act * IMG_X_OFFSET, cy + direction * IMG_Y_OFFSET,
+//                cx + 32 + act * IMG_X_OFFSET, cy + 32 + direction * IMG_Y_OFFSET, null);
+    
 	}
 
 	public void paint(Graphics g, int hp, int mp) {

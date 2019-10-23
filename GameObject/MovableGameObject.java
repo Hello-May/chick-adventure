@@ -65,6 +65,11 @@ public abstract class MovableGameObject extends GameObject {
 	protected DelayCounter delayCounter;
 	protected int act;
 	protected int delay;
+	
+	public MovableGameObject(int x, int y, int width, int height, int speed) {
+	        super(x, y, width, height);
+	        setSpeed(speed);
+	}
 
 	public MovableGameObject(int x, int y, int width, int height, int speed,int delay) {
 		super(x, y, width, height);

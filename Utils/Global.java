@@ -58,6 +58,12 @@ public class Global {
 	public static final int ACTOR_SIZE = 32;
 	public static final int ACTOR_STEP = 3;
 	public static final int ACTOR_SPEED = 3;
+	
+    // 圖片大小制定
+    public static final int IMG_X_OFFSET = 32;
+    public static final int IMG_Y_OFFSET = 32;
+    public static final int IMG_X_CHICKEN = 45;
+    public static final int IMG_Y_CHICKEN = 50;
 
 	// 人物狀態
 	public static final int HEALTH = 1;

@@ -5,9 +5,21 @@ import java.awt.Graphics;
 
 import Utils.DelayCounter;
 import Utils.Global;
+import fighting.Status;
 
 public class Actor extends MovableGameObject {
 	private DelayCounter fly;
+	private Status status;
+	private DelayCounter movedDelay;
+	
+	public Actor(int x, int y, int width, int height, int speed, int actor, Status status) {
+        super(x, y, width, height, speed);
+        delay = act = 0;
+        direction = Global.DOWN;
+        movedDelay = new DelayCounter(5);
+        actorHelper = new ActorHelper(actor);
+        this.status = status;
+    }
 
 	public Actor(int x, int y, int width, int height, int speed, int actor, int delay) {
 		super(x, y, width, height, speed, delay);
@@ -21,6 +33,11 @@ public class Actor extends MovableGameObject {
 		def = 2;
 		skills = new Skill[] { new Heal(), new Attack(), new Critrcal() };
 	}
+	
+    public void attack() { //按下攻擊的時候怪物轉向右邊
+        this.direction = Global.RIGHT;
+        //應該要寫if碰撞後轉向右邊else正面
+    }
 
 	@Override
 	public void useSkill(Actor target) {

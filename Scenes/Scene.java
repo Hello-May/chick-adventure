@@ -37,5 +37,14 @@ public abstract class Scene {
 	}
 
 	public abstract KeyCommandListener getCommandListener();
+	public abstract KeyCommandListener getKeyCommandListener();
+	public abstract KeyCommandListener getMouseCommandListener();
+	
+//	public KeyCommandListener getKeyCommandListener() {
+//		return null;
+//	};
+//	public KeyCommandListener getMouseCommandListener() {
+//		return null;
+//	};
 
 }
